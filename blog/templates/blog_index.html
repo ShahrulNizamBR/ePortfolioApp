@@ -1,8 +1,42 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block page_content %}
+<h1>Shah's Blog</h1>
+<h2 style="padding-right: 900px"><br>Projects</h2>
+
+<h5><br>Project 1: Django Web Application</h5>
+<img src="img/django.png" alt="Django Web" height="42" width="42">
+<p><br>A screenshot of my web development project with Django</p>
+
+<h5 style="padding left: 90px"><br>Project 2: Salesforce Project</h5>
+<img src="img/salesforce.png" alt="Salesforce" height="42" width="42">
+<p><br>A screenshot of my IT sales project with Salesforce</p>
+
+<h2 style="padding-right: 900px"><br>Hobbies</h2>
+<img src="img/bass.png" alt="Bass" height="42" width="42">
+<p><br>I currently play bass during my freetime, composing my own basslines and riffs
+from various songs consisting of different genres. I am intending to play it in 
+a band soon. For now, <strong>SLAPPP!!!!</strong></p>
+
 <div class="col-md-8 offset-md-2">
-    <h1>Blog Index</h1>
+<div class="row">
+{% for project in projects %}
+    <div class="col-md-4">
+        <div class="card mb-2">
+            <img class="card-img-top" src="{% static project.image %}">
+            <div class="card-body">
+                <h5 class="card-title">{{ project.title }}</h5>
+                <p class="card-text">{{ project.description }}</p>
+                <a href="{% url 'project_detail' project.pk %}"
+                   class="btn btn-primary">
+                    Read More
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
     <hr>
     {% for post in posts %}
     <h2><a href="{% url 'blog_detail' post.pk%}">{{ post.title }}</a></h2>
@@ -17,5 +51,8 @@
     </small>
     <p>{{ post.body | slice:":400" }}...</p>
     {% endfor %}
+	
 </div>
 {% endblock %}
+
+
